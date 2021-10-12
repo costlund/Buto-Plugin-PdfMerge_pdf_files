@@ -1,12 +1,16 @@
-version: 1.2.0
+version: 1.2.1
 history:
+  1.2.1:
+    date: '2021-10-12'
+    title: Versions
+    description: 'Versions update.'
   1.2.0:
     date: '2021-10-12'
-    title: 'Tcpdf'
+    title: Tcpdf
     description: 'Replace library lib/tcpdf with plugin tcpdf/version_6_4_2/lib.'
   1.1.0:
     date: '2021-04-01'
-    title: 'Method'
+    title: Method
     description: 'Add method support.'
   1.0.0:
     date: '2021-03-17'
@@ -15,7 +19,7 @@ history:
 plugin:
   -
     name: tcpdf/version_6_4_2
-    version: 2.0.0
+    version: 2.1.0
 sys:
   -
     name: mercury
