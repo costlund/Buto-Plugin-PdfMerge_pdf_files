@@ -1,5 +1,5 @@
 <?php
-require_once("tcpdf/tcpdf.php");
+require_once(wfGlobals::getAppDir()."/plugin/tcpdf/version_6_4_2/lib/tcpdf.php");
 require_once("fpdi/fpdi.php");
 
 class MergePdf{
