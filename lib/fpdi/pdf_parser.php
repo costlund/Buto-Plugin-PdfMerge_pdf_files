@@ -287,8 +287,8 @@ class pdf_parser
             throw new Exception('Unable to find "startxref" keyword.');
         }
 
-        $pos = strlen($data) - $keywordPos;
-        $data = substr($data, $pos);
+        $pos = wfPhpfunc::strlen($data) - $keywordPos;
+        $data = wfPhpfunc::substr($data, $pos);
 
         if (!preg_match('/\s*(\d+).*$/s', $data, $matches)) {
             throw new Exception('Unable to find pointer to xref table.');
@@ -350,10 +350,10 @@ class pdf_parser
             throw new Exception('Trailer keyword not found after xref table');
         }
 
-        $data = ltrim(substr($data, 0, $trailerPos));
+        $data = ltrim(wfPhpfunc::substr($data, 0, $trailerPos));
 
         // get Line-Ending
-        $found = preg_match_all("/(\r\n|\n|\r)/", substr($data, 0, 100), $m); // check the first 100 bytes for line breaks
+        $found = preg_match_all("/(\r\n|\n|\r)/", wfPhpfunc::substr($data, 0, 100), $m); // check the first 100 bytes for line breaks
         if ($found === 0) {
             throw new Exception('Xref table seems to be corrupted.');
         }
@@ -458,7 +458,7 @@ class pdf_parser
                         }
                     }
 
-                    $result = substr($c->buffer, $c->offset, $match - $c->offset);
+                    $result = wfPhpfunc::substr($c->buffer, $c->offset, $match - $c->offset);
                     $c->offset = $match + 1;
 
                     return array (self::TYPE_HEX, $result);
@@ -533,13 +533,13 @@ class pdf_parser
                     }
                 } while($openBrackets != 0 && $c->increaseLength());
 
-                $result = substr($c->buffer, $c->offset, $pos - $c->offset - 1);
+                $result = wfPhpfunc::substr($c->buffer, $c->offset, $pos - $c->offset - 1);
                 $c->offset = $pos;
 
                 return array (self::TYPE_STRING, $result);
 
             case 'stream':
-                $tempPos = $c->getPos() - strlen($c->buffer);
+                $tempPos = $c->getPos() - wfPhpfunc::strlen($c->buffer);
                 $tempOffset = $c->offset;
 
                 $c->reset($startPos = $tempPos + $tempOffset);
@@ -578,7 +578,7 @@ class pdf_parser
                 $endstream = $this->_readToken($c);
 
                 if ($endstream != 'endstream') {
-                    $c->reset($startPos + $e + $length + 9); // 9 = strlen("endstream")
+                    $c->reset($startPos + $e + $length + 9); // 9 = wfPhpfunc::strlen("endstream")
                     // We don't throw an error here because the next
                     // round trip will start at a new offset
                 }
@@ -668,7 +668,7 @@ class pdf_parser
                 if ($header[0] != self::TYPE_OBJDEC || $header[1] != $objSpec[1] || $header[2] != $objSpec[2]) {
                     $toSearchFor = $objSpec[1] . ' ' . $objSpec[2] . ' obj';
                     if (preg_match('/' . $toSearchFor . '/', $c->buffer)) {
-                        $c->offset = strpos($c->buffer, $toSearchFor) + strlen($toSearchFor);
+                        $c->offset = strpos($c->buffer, $toSearchFor) + wfPhpfunc::strlen($toSearchFor);
                         // reset stack
                         $c->stack = array();
                     } else {
@@ -796,7 +796,7 @@ class pdf_parser
                         }
                     }
 
-                    $c->offset = $m[0][1] + strlen($m[0][0]);
+                    $c->offset = $m[0][1] + wfPhpfunc::strlen($m[0][0]);
 
                     return $this->_readToken($c);
                 }
@@ -830,7 +830,7 @@ class pdf_parser
                     }
                 }
 
-                $result = substr($c->buffer, $c->offset - 1, $pos + 1);
+                $result = wfPhpfunc::substr($c->buffer, $c->offset - 1, $pos + 1);
 
                 $c->offset += $pos;
 
@@ -872,7 +872,7 @@ class pdf_parser
                 case '/Fl':
                     if (function_exists('gzuncompress')) {
                         $oStream = $stream;
-                        $stream = (strlen($stream) > 0) ? @gzuncompress($stream) : '';
+                        $stream = (wfPhpfunc::strlen($stream) > 0) ? @gzuncompress($stream) : '';
                     } else {
                         throw new Exception(
                             sprintf('To handle %s filter, please compile php with zlib support.', $filter[1])
@@ -881,8 +881,8 @@ class pdf_parser
 
                     if ($stream === false) {
                         $tries = 0;
-                        while ($tries < 8 && ($stream === false || strlen($stream) < strlen($oStream))) {
-                            $oStream = substr($oStream, 1);
+                        while ($tries < 8 && ($stream === false || wfPhpfunc::strlen($stream) < wfPhpfunc::strlen($oStream))) {
+                            $oStream = wfPhpfunc::substr($oStream, 1);
                             $stream = @gzinflate($oStream);
                             $tries++;
                         }

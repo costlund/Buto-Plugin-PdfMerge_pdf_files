@@ -40,7 +40,7 @@ class FilterLZW
         $this->_initsTable();
 
         $this->_data = $data;
-        $this->_dataLength = strlen($data);
+        $this->_dataLength = wfPhpfunc::strlen($data);
 
         // Initialize pointers
         $this->_bytePointer = 0;

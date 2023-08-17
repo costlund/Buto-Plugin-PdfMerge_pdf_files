@@ -93,7 +93,7 @@ if (!class_exists('TCPDF', false)) {
                         $value[2][1] = $this->_encrypt_data($this->_currentObjId, $value[2][1]);
                         $value[1][1]['/Length'] = array(
                             pdf_parser::TYPE_NUMERIC,
-                            strlen($value[2][1])
+                            wfPhpfunc::strlen($value[2][1])
                         );
                     }
                     break;
@@ -119,7 +119,7 @@ if (!class_exists('TCPDF', false)) {
         protected function _unescape($s)
         {
             $out = '';
-            for ($count = 0, $n = strlen($s); $count < $n; $count++) {
+            for ($count = 0, $n = wfPhpfunc::strlen($s); $count < $n; $count++) {
                 if ($s[$count] != '\\' || $count == $n-1) {
                     $out .= $s[$count];
                 } else {
@@ -185,7 +185,7 @@ if (!class_exists('TCPDF', false)) {
         public function hex2str($data)
         {
             $data = preg_replace('/[^0-9A-Fa-f]/', '', rtrim($data, '>'));
-            if ((strlen($data) % 2) == 1) {
+            if ((wfPhpfunc::strlen($data) % 2) == 1) {
                 $data .= '0';
             }
 

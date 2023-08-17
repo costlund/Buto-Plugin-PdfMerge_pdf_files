@@ -486,10 +486,10 @@ class FPDI extends FPDF_TPL
 
             if (is_subclass_of($this, 'TCPDF')) {
                 $buffer = $this->_getrawstream($buffer);
-                $this->_out('/Length ' . strlen($buffer) . ' >>');
+                $this->_out('/Length ' . wfPhpfunc::strlen($buffer) . ' >>');
                 $this->_out("stream\n" . $buffer . "\nendstream");
             } else {
-                $this->_out('/Length ' . strlen($buffer) . ' >>');
+                $this->_out('/Length ' . wfPhpfunc::strlen($buffer) . ' >>');
                 $this->_putstream($buffer);
             }
             $this->_out('endobj');
@@ -516,7 +516,7 @@ class FPDI extends FPDF_TPL
 
         // Begin a new object
         if (!$onlyNewObj) {
-            $this->offsets[$objId] = is_subclass_of($this, 'TCPDF') ? $this->bufferlen : strlen($this->buffer);
+            $this->offsets[$objId] = is_subclass_of($this, 'TCPDF') ? $this->bufferlen : wfPhpfunc::strlen($this->buffer);
             $this->_out($objId . ' 0 obj');
             $this->_currentObjId = $objId; // for later use with encryption
         }
@@ -651,11 +651,11 @@ class FPDI extends FPDF_TPL
                 } else if ((!$this->InFooter) AND isset($this->footerlen[$this->page]) AND ($this->footerlen[$this->page] > 0)) {
                     // puts data before page footer
                     $pagebuff = $this->getPageBuffer($this->page);
-                    $page = substr($pagebuff, 0, -$this->footerlen[$this->page]);
-                    $footer = substr($pagebuff, -$this->footerlen[$this->page]);
+                    $page = wfPhpfunc::substr($pagebuff, 0, -$this->footerlen[$this->page]);
+                    $footer = wfPhpfunc::substr($pagebuff, -$this->footerlen[$this->page]);
                     $this->setPageBuffer($this->page, $page . $s . $footer);
                     // update footer position
-                    $this->footerpos[$this->page] += strlen($s);
+                    $this->footerpos[$this->page] += wfPhpfunc::strlen($s);
                 } else {
                     // set page data
                     $this->setPageBuffer($this->page, $s, true);

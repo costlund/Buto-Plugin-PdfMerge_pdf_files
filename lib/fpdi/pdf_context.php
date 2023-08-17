@@ -96,12 +96,12 @@ class pdf_context
             }
 
             $this->buffer = $l > 0 ? fread($this->file, $l) : '';
-            $this->length = strlen($this->buffer);
+            $this->length = wfPhpfunc::strlen($this->buffer);
             if ($this->length < $l)
                 $this->increaseLength($l - $this->length);
         } else {
             $this->buffer = $this->file;
-            $this->length = strlen($this->buffer);
+            $this->length = wfPhpfunc::strlen($this->buffer);
         }
         $this->offset = 0;
         $this->stack = array();
@@ -141,7 +141,7 @@ class pdf_context
                     break;
 
                 $this->buffer .= fread($this->file, $toRead);
-            } while ((($this->length = strlen($this->buffer)) != $totalLength) && !feof($this->file));
+            } while ((($this->length = wfPhpfunc::strlen($this->buffer)) != $totalLength) && !feof($this->file));
 
             return true;
         } else {

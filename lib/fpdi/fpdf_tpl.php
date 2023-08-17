@@ -499,7 +499,7 @@ class FPDF_TPL extends fpdi_bridge
             $this->_out('>>');
 
             $buffer = ($this->compress) ? gzcompress($tpl['buffer']) : $tpl['buffer'];
-            $this->_out('/Length ' . strlen($buffer) . ' >>');
+            $this->_out('/Length ' . wfPhpfunc::strlen($buffer) . ' >>');
             $this->_putstream($buffer);
             $this->_out('endobj');
         }

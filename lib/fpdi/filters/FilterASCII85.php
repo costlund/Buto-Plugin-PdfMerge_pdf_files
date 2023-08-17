@@ -33,7 +33,7 @@ class FilterASCII85
         $state = 0;
         $chn = null;
 
-        $l = strlen($in);
+        $l = wfPhpfunc::strlen($in);
 
         for ($k = 0; $k < $l; ++$k) {
             $ch = ord($in[$k]) & 0xff;
