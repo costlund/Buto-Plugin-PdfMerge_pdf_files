@@ -1,0 +1,57 @@
+readme:
+  name: Buto-Plugin-PdfMerge_pdf_files
+  date: '2024-11-19'
+  description: |
+    Merged pdf files.
+  item:
+    -
+      name: Widgets
+      item:
+        -
+          name: widget_merge
+          description: |
+            Output pdf in browser.
+            ```
+            type: widget
+            data:
+              plugin: pdf/merge_pdf_files
+              method: merge
+              data:
+                files:
+                  - /theme/[theme]/data/file_1.pdf
+                  - /theme/[theme]/data/file_2.pdf
+            ```
+            View file.
+            ```
+                destination: I
+                outputPath: null
+            ```
+            Download file.
+            ```
+                destination: D
+                outputPath: file_merged.pdf
+            ```
+            Save file to disk.
+            ```
+                destination: F
+                outputPath: /../buto_data/theme/[theme]/file_merged.pdf
+            ```
+            Display errors (default 0).
+            ```
+                display_errors: 1
+            ```
+            Run method to modify data.
+            ```
+                method:
+                  -
+                    plugin: my/plugin
+                    method: my_method
+            ```
+    -
+      name: Methods
+      item:
+        -
+          name: merge
+          description: |
+            It could be more handy when save file to disk to use the method merge from a plugin.
+            

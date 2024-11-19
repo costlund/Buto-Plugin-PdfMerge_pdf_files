@@ -6,6 +6,13 @@ class PluginPdfMerge_pdf_files{
   public function widget_merge($data){
     $data = new PluginWfArray($data);
     /**
+     * 
+     */
+    if(!$data->get('data/display_errors')){
+      $data->set('data/display_errors', 0);
+    }
+    ini_set('display_errors', $data->get('data/display_errors'));
+    /**
      * method
      */
     if($data->get('data/method')){
